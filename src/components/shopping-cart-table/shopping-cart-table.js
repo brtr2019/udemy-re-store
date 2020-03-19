@@ -7,7 +7,7 @@ import {withBookstoreService} from "../hoc";
 const ShoppingCartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
   const renderRow = (item, idx) => {
     const { id, name, count, total } = item;
-    console.log("Hello world!!!");
+    console.log("Hello world2");
     return (
       <tr key={id}>
         <td>{idx + 1}</td>
