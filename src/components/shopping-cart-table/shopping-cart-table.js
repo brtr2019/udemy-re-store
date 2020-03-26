@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './shopping-cart-table.css';
 import {compose} from "../../utils";
 import {withBookstoreService} from "../hoc";
+import {bookAddedToCart,bookRemovedFromCart,allBooksRemovedFromCart} from "../../actions";
 
 let ShoppingCartTable;
 ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => {
@@ -69,18 +70,10 @@ const mapStateToProps = ({cartItems,orderTotal})=>{
     }
 }
 
-const mapDispatchToProps = ()=>{
-    return {
-        onIncrease:(id)=>{
-            console.log(`Increase ${id}`);
-        },
-        onDecrease:(id)=>{
-            console.log('Decrease');
-        },
-        onDelete:(id)=>{
-            console.log('On Delete');
-        }
-    }
+const mapDispatchToProps = {
+        onIncrease: bookAddedToCart,
+        onDecrease: bookRemovedFromCart,
+        onDelete: allBooksRemovedFromCart
 }
 
 
