@@ -30,15 +30,7 @@ const BookList = ({books,onAddedToCart})=>{
 class BookListContainer extends Component{
 
     componentDidMount() {
-       
-        //const {bookstoreService,booksLoaded,booksRequested,booksError} = this.props; // отдает mapDispatchToProps
-        //booksRequested(true);
-        //bookstoreService.getBooks()
-        //.then((data)=>booksLoaded(data))
-        //    .catch((err)=>booksError(err));
-
         this.props.fetchBooks();
-         
     }
 
     render(){
@@ -54,19 +46,8 @@ class BookListContainer extends Component{
     }
 }
 
-
-
-
-// получить книги из нашего redux-store 1-ый вариант
-/*const mapStateToProps = (state)=>{
-    return {
-        books:state.books,
-        loading:state.loading
-    }
-}*/
-
 // получить книги из нашего redux-store 2-ой вариант с деструктуризацией
-const mapStateToProps = ({books,loading,error})=>{
+const mapStateToProps = ({bookList:{books,loading,error}})=>{
     return {
         books,
         loading,
@@ -74,22 +55,6 @@ const mapStateToProps = ({books,loading,error})=>{
     }
 }
 
-// 1-ая реализация без BindActionCreators
-/*const mapDispatchToProps = (dispatch)=>{
-    return {
-        booksLoaded:(newBooks)=>{
-            dispatch(booksLoaded(newBooks)) // использовали booksloaded action из папки action
-        }
-    }
-}*/
-
-// 2-a реализация. Полностью идентичны по действию с 1-ой и 3-ей
-/*const mapDispatchToProps = (dispatch)=>{
-    return bindActionCreators({booksLoaded},dispatch);
-}*/
-
-// 3-я реализация, просто проще и короче
-// mapDispatchToProps описывает какие экшены компонент будет передавать в store
 const mapDispatchToProps = (dispatch,{bookstoreService})=>{
     return {
         fetchBooks:fetchBooks(bookstoreService,dispatch),
@@ -97,10 +62,6 @@ const mapDispatchToProps = (dispatch,{bookstoreService})=>{
     }
 }
 
-// без compose
-//export default withBookstoreService()(connect(mapStateToProps,mapDispatchToProps)(BookList));
-
-//c compose()
 export default compose(
     withBookstoreService(),
     connect(mapStateToProps,mapDispatchToProps)
